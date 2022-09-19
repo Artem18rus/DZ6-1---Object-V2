@@ -1,6 +1,11 @@
-/* eslint-disable guard-for-in */
-/* eslint-disable no-param-reassign */
+/* eslint-disable no-restricted-globals */
+/* eslint-disable import/prefer-default-export */
+/* eslint-disable array-callback-return */
 /* eslint-disable no-unused-vars */
+/* eslint-disable no-continue */
+/* eslint-disable no-unused-expressions */
+/* eslint-disable no-sequences */
+/* eslint-disable guard-for-in */
 export const obj = {
   name: 'мечник',
   health: 10,
@@ -9,54 +14,30 @@ export const obj = {
   defence: 40,
 };
 
-export function total(objNew, [...rest]) {
-  const arrProm = [...rest];
+const list = Object.keys(obj);
+const arr = ['name', 'level'];
 
-  function f() {
-    const arr = [];
-    for (let i = 0; arrProm.length > i; i += 1) {
-      for (const key in objNew) {
-        if (arrProm[i] in objNew) {
-          const objectItem1 = {
-            key: arrProm[i],
-            value: objNew[arrProm[i]],
-          };
-          arr.push(objectItem1);
-          break;
-        }
+const filterList = list.filter((item) => item !== arr[0] && item !== arr[1]);
+const sortList = filterList.sort();
+arr.push(...sortList);
+
+export function func() {
+  const result = [];
+  const arrTotal = arr.map((item) => {
+    for (const key in obj) {
+      const obj2 = {};
+      if (item === key) {
+        obj2.key = `${key}`,
+        obj2.value = `${obj[key]}`;
       }
-      delete objNew[arrProm[i]];
-    }
-    return arr;
-  }
-  const oneArray = f();
-
-  const arrSortKeys = [];
-  for (const key in objNew) {
-    arrSortKeys.push(`${key}`);
-  }
-  arrSortKeys.sort();
-
-  function f2() {
-    const arr2 = [];
-    for (let i = 0; arrSortKeys.length > i; i += 1) {
-      for (const key in objNew) {
-        if (arrSortKeys[i] in objNew) {
-          const objectItem2 = {
-            key: arrSortKeys[i],
-            value: objNew[arrSortKeys[i]],
-          };
-          arr2.push(objectItem2);
-          break;
-        }
+      if (!obj2.key) continue;
+      if (isNaN(obj2.value) === false) {
+        obj2.value = +obj2.value;
       }
+      result.push(obj2);
     }
-    return arr2;
-  }
-  const twoArray = f2();
-
-  const totalArray = [...oneArray, ...twoArray];
-  return totalArray;
+  });
+  return result;
 }
-// export const funcTotal = total(obj, ['name', 'level', 'attack']);
-// console.log(funcTotal)
+const funcTotal = func();
+console.log(funcTotal);
