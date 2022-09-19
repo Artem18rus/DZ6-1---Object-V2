@@ -39,5 +39,3 @@ export function func() {
   });
   return result;
 }
-const funcTotal = func();
-console.log(funcTotal);
