@@ -1,10 +1,5 @@
 /* eslint-disable no-restricted-globals */
-/* eslint-disable import/prefer-default-export */
-/* eslint-disable array-callback-return */
-/* eslint-disable no-unused-vars */
 /* eslint-disable no-continue */
-/* eslint-disable no-unused-expressions */
-/* eslint-disable no-sequences */
 /* eslint-disable guard-for-in */
 export const obj = {
   name: 'мечник',
@@ -14,21 +9,19 @@ export const obj = {
   defence: 40,
 };
 
-const list = Object.keys(obj);
-const arr = ['name', 'level'];
-
-const filterList = list.filter((item) => item !== arr[0] && item !== arr[1]);
-const sortList = filterList.sort();
-arr.push(...sortList);
-
-export function func() {
+export function orderByProps(objNew, array) {
+  const listObj = Object.keys(objNew);
+  const arr = [...array];
+  const filterList = listObj.filter((item) => array.indexOf(item) === -1);
+  const sortList = filterList.sort();
+  arr.push(...sortList);
   const result = [];
-  const arrTotal = arr.map((item) => {
-    for (const key in obj) {
+  arr.forEach((item) => {
+    for (const key in objNew) {
       const obj2 = {};
       if (item === key) {
-        obj2.key = `${key}`,
-        obj2.value = `${obj[key]}`;
+        obj2.key = `${key}`;
+        obj2.value = `${objNew[key]}`;
       }
       if (!obj2.key) continue;
       if (isNaN(obj2.value) === false) {

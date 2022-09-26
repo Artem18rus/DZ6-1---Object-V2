@@ -1,8 +1,8 @@
 /* eslint-disable no-unused-vars */
-import { obj, func } from '../decision';
+import { obj, orderByProps } from '../decision';
 
 test('Function-OK', () => {
-  const funcTotal = func();
+  const funcTotal = orderByProps(obj, ['name', 'level']);
   expect(funcTotal).toEqual([
     { key: 'name', value: 'мечник' },
     { key: 'level', value: 2 },
